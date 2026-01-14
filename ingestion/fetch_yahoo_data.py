@@ -31,6 +31,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def normalize_column(col) -> str:
+    """
+    Normalize column names from yfinance.
+    Handles both string and tuple (MultiIndex) columns.
+    """
+    if isinstance(col, tuple):
+        col = col[0]
+
+    return col.lower().replace(" ", "_")
+
+
 # --------------------
 # Core logic
 # --------------------
@@ -56,7 +67,7 @@ def fetch_ticker_data(
         raise ValueError(f"No data returned for ticker={ticker}")
 
     df.reset_index(inplace=True)
-    df.columns = [col.lower().replace(" ", "_") for col in df.columns]
+    df.columns = [normalize_column(col) for col in df.columns]
 
     df["ticker"] = ticker
 
