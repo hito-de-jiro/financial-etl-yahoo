@@ -12,7 +12,10 @@ pandas-stubs==2.3.3.260113
 peewee==3.19.0
 platformdirs==4.5.1
 protobuf==6.33.4
+py4j==0.10.9.7
 pycparser==2.23
+pyspark==3.5.2
+pyspark-stubs==3.0.0.post3
 python-dateutil==2.9.0.post0
 pytz==2025.2
 requests==2.32.5
