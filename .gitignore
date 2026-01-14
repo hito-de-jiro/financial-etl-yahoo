@@ -10,6 +10,18 @@ __pycache__/
 # JetBrains files
 .idea
 
+# Spark
+spark-warehouse/
+metastore_db/
+*.log
+
+# Data
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
 # Distribution / packaging
 .Python
 build/
