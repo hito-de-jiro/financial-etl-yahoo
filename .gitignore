@@ -16,7 +16,9 @@ metastore_db/
 *.log
 
 # Data
-data/
+data/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
 
 # OS
 .DS_Store
@@ -70,22 +72,6 @@ cover/
 # Translations
 *.mo
 *.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
 
 # PyBuilder
 .pybuilder/

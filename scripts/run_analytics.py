@@ -6,7 +6,7 @@ import duckdb
 def main():
     con = duckdb.connect()
 
-    sql_path = Path("sql/analytics.sql")
+    sql_path = Path("../sql/analytics.sql")
     sql = sql_path.read_text(encoding="utf-8")
 
     # Execute all queries
