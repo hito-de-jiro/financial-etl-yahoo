@@ -7,19 +7,17 @@ from typing import List
 import pandas as pd
 import yfinance as yf
 
+from config.settings import RAW_DIR, TICKERS
 
 # --------------------
 # Config
 # --------------------
-RAW_DATA_PATH = Path("../data/raw")
-RAW_DATA_PATH.mkdir(parents=True, exist_ok=True)
+RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-DEFAULT_TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
 DATE_FORMAT = "%Y-%m-%d"
 
 MAX_RETRIES = 3
 RETRY_DELAY_SEC = 5
-
 
 # --------------------
 # Logging
@@ -46,9 +44,9 @@ def normalize_column(col) -> str:
 # Core logic
 # --------------------
 def fetch_ticker_data(
-    ticker: str,
-    start_date: str,
-    end_date: str
+        ticker: str,
+        start_date: str,
+        end_date: str
 ) -> pd.DataFrame:
     """
     Fetch historical market data for a single ticker from Yahoo Finance.
@@ -75,9 +73,9 @@ def fetch_ticker_data(
 
 
 def fetch_with_retry(
-    ticker: str,
-    start_date: str,
-    end_date: str
+        ticker: str,
+        start_date: str,
+        end_date: str
 ) -> pd.DataFrame:
     """
     Retry wrapper around Yahoo Finance fetch.
@@ -100,7 +98,7 @@ def save_raw_data(df: pd.DataFrame, ticker: str) -> None:
     """
     Save raw data as CSV partitioned by ticker.
     """
-    output_dir = RAW_DATA_PATH / f"ticker={ticker}"
+    output_dir = RAW_DIR / f"ticker={ticker}"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     file_path = output_dir / "data.csv"
@@ -110,9 +108,9 @@ def save_raw_data(df: pd.DataFrame, ticker: str) -> None:
 
 
 def run_ingestion(
-    tickers: List[str],
-    start_date: str,
-    end_date: str
+        tickers: List[str],
+        start_date: str,
+        end_date: str
 ) -> None:
     """
     Run ingestion for a list of tickers.
@@ -137,7 +135,7 @@ if __name__ == "__main__":
     END_DATE = datetime.today().strftime(DATE_FORMAT)
 
     run_ingestion(
-        tickers=DEFAULT_TICKERS,
+        tickers=TICKERS,
         start_date=START_DATE,
         end_date=END_DATE
     )

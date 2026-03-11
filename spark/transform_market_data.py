@@ -12,17 +12,16 @@ from pyspark.sql.types import (
     StringType,
 )
 
+from config.settings import RAW_DIR, PROCESSED_DIR
+
 # --------------------
 # Paths
 # --------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-RAW_PATH = PROJECT_ROOT / "data/raw"
 
-PROCESSED_PATH = str(PROJECT_ROOT / "data/processed")
-
-csv_files = glob.glob(str(RAW_PATH / "ticker=*/*.csv"))
+csv_files = glob.glob(str(RAW_DIR / "ticker=*/*.csv"))
 if not csv_files:
-    raise FileNotFoundError(f"No CSV files found in {RAW_PATH}")
+    raise FileNotFoundError(f"No CSV files found in {RAW_DIR}")
 # --------------------
 # Spark session
 # --------------------
@@ -89,7 +88,7 @@ enriched_df = (
     .write
     .mode("overwrite")
     .partitionBy("ticker", "year")
-    .parquet(PROCESSED_PATH)
+    .parquet(str(PROCESSED_DIR))
 )
 
 spark.stop()
